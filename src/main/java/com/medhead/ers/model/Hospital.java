@@ -29,6 +29,9 @@ public class Hospital {
 
 	private Double longitude;
 
+	@Column(name = "is_available_bed")
+	private Boolean isAvailableBed;
+
 	/*
 	 * @OneToMany // (mappedBy = "hospital")
 	 * 

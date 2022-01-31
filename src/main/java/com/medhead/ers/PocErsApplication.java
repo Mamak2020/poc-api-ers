@@ -7,8 +7,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class PocErsApplication {
 
 	public static void main(String[] args) {
-		// System.out.println("Hello bugs ");
-
 		SpringApplication.run(PocErsApplication.class, args);
 	}
 

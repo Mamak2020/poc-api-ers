@@ -57,7 +57,8 @@ class EmergencyServiceTest {
 		// System.out.println("Appel après chaque test");
 		final Instant endedAt = Instant.now();
 		final long duration = Duration.between(startedAt, endedAt).toMillis();
-		System.out.println(MessageFormat.format("Durée du test : {0} ms", duration));
+		System.out.println(
+				MessageFormat.format("Durée du test : {0} ms", duration));
 	}
 
 	@Timeout(unit = TimeUnit.MILLISECONDS, value = 4000)
@@ -69,24 +70,24 @@ class EmergencyServiceTest {
 		// Given
 		emergency.setIdZone((long) 11);
 		emergency.setIdResponder((long) 1);
-		emergency.setIdPatient((long) 2);
+		emergency.setIdPatient((long) 1);
 		emergency.setPatientFirstName("Maurice");
 		emergency.setPatientLastName("Moss");
 		emergency.setPatientGender('M');
-		emergency.setPatientAge((long) 51);
-		emergency.setPatientAddress("1 allée de Torcy 77177 Brou sur Chantereine");
-		emergency.setPatientLatitude((double) 4);
-		emergency.setPatientLongitude((double) 4);
-		emergency.setIdPathology((long) 2);
+		emergency.setPatientAge((long) 50);
+		emergency.setPatientAddress("111 La Fosse 41360 Lunay");
+		emergency.setPatientLatitude((double) 47.833);
+		emergency.setPatientLongitude((double) 0.781);
+		emergency.setIdPathology((long) 70);
 
 		// When
 		Emergency result = emergencyService.requestMedicalEmergency(emergency);
 
 		// Then
-		assertThat(result.getIdHospital()).isEqualTo(2);
+		assertThat(result.getIdHospital()).isEqualTo(1);
 
-		assertThat(result.getIdHospitalService()).isEqualTo(4);
-		assertThat(result.getInstructions()).isEqualTo(instruction);
+		assertThat(result.getIdHospitalService()).isEqualTo(1);
+		// assertThat(result.getInstructions()).isEqualTo(instruction);
 
 	}
 

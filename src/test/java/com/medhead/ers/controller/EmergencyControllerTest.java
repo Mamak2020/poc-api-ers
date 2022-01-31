@@ -30,7 +30,7 @@ public class EmergencyControllerTest {
 	@Test
 	public void testGetEmergencies() throws Exception {
 		mockMvc.perform(get("/emergencies")).andExpect(status().isOk())
-				.andExpect(content().string(containsString("Chelles")));
+				.andExpect(content().string(containsString("Lunay")));
 		// .andExpect(jsonPath("$[20].hospitalName").isNotEmpty());
 	}
 
@@ -44,14 +44,19 @@ public class EmergencyControllerTest {
 	public void testCreateEmergency() throws Exception {
 
 		// Given
-		final String jsonBody = "{" + "\"idZone\":11," + "\"idResponder\":1," + "\"idPatient\":2,"
-				+ "\"patientFirstName\":\"Maurice\"," + "\"patientLastName\":\"Moss\"," + "\"patientGender\":\"M\","
-				+ "\"patientAge\":51," + "\"patientAddress\":\"1 rue de Turbigo 75002 Paris\","
-				+ "\"patientLatitude\":4," + "\"patientLongitude\":4," + "\"idPathology\":2," + "\"dtStart\":null}";
+		final String jsonBody = "{" + "\"idZone\":11," + "\"idResponder\":1,"
+				+ "\"idPatient\":1," + "\"patientFirstName\":\"Maurice\","
+				+ "\"patientLastName\":\"Moss\"," + "\"patientGender\":\"M\","
+				+ "\"patientAge\":50,"
+				+ "\"patientAddress\":\"111 La Fosse 41360 Lunay \","
+				+ "\"patientLatitude\":47.833," + "\"patientLongitude\":0.781,"
+				+ "\"idPathology\":70," + "\"dtStart\":null}";
 		// When
-		mockMvc.perform(post("/emergencies").contentType(MediaType.APPLICATION_JSON).content(jsonBody))
+		mockMvc.perform(post("/emergencies")
+				.contentType(MediaType.APPLICATION_JSON).content(jsonBody))
 				// Then
-				.andExpect(status().isOk()).andExpect(jsonPath("$.instructions").isNotEmpty());
+				.andExpect(status().isOk())
+				.andExpect(jsonPath("$.instructions").isNotEmpty());
 
 	}
 
