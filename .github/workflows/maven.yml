@@ -4,6 +4,9 @@
 name: Java CI/CD Pipeline
 
 on:
+  #Manually trigger workflow runs
+  workflow_dispatch:
+  #Trigger the workflow on push from the main branch
   push:
     branches: [ main ]
   pull_request:
@@ -26,6 +29,8 @@ jobs:
       run: mvn -B test
 
   build:
+    #Depends on test's job
+    needs: tests
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
