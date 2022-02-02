@@ -13,8 +13,40 @@ on:
     branches: [ main ]
 
 jobs:
+
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up JDK 17
+      uses: actions/setup-java@v2.5.0
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+        #cache: maven
+       #Set up Maven cache
+    - name: Cache Maven packages
+      #This action allows caching dependencies and build outputs to improve workflow execution time.
+      uses: actions/cache@v1
+      with:
+        path: ~/.m2
+        key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+        restore-keys: ${{ runner.os }}-m2
+    - name: Build with Maven
+      run: mvn -B package --file pom.xml
+    - name: Upload JAR
+      #This uploads artifacts from your workflow allowing you to share data between jobs and store data once a workflow is complete.
+      uses: actions/upload-artifact@v2
+      with:
+        #Set artifact name
+        name: artifact
+        #From this path
+        path: target/ers-0.0.1-SNAPSHOT.jar
+  
   #Test's job
   tests:
+    #Depends on test's job
+    needs: build
     name: Unit tests
     runs-on: ubuntu-latest
     steps:
@@ -25,7 +57,7 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
        # cache: maven
-        
+
        #Set up Maven cache
     - name: Cache Maven packages
       #This action allows caching dependencies and build outputs to improve workflow execution time.
@@ -37,7 +69,7 @@ jobs:
 
     - name: Run Tests
       run: mvn -B test
-      
+
   #Sonar's Job
   sonar:
     #Depends on test's job
@@ -77,34 +109,4 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}     
 
-  build:
-    #Depends on test's job
-    needs: sonar
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v2
-    - name: Set up JDK 17
-      uses: actions/setup-java@v2.5.0
-      with:
-        java-version: '17'
-        distribution: 'temurin'
-        #cache: maven
-       #Set up Maven cache
-    - name: Cache Maven packages
-      #This action allows caching dependencies and build outputs to improve workflow execution time.
-      uses: actions/cache@v1
-      with:
-        path: ~/.m2
-        key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
-        restore-keys: ${{ runner.os }}-m2
-
-    - name: Build with Maven
-      run: mvn -B package --file pom.xml
-    - name: Upload JAR
-      #This uploads artifacts from your workflow allowing you to share data between jobs and store data once a workflow is complete.
-      uses: actions/upload-artifact@v2
-      with:
-        #Set artifact name
-        name: artifact
-        #From this path
-        path: target/ers-0.0.1-SNAPSHOT.jar
+ 
