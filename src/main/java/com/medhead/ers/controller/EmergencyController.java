@@ -27,14 +27,10 @@ public class EmergencyController {
 		return emergencyService.getEmergencies();
 	}
 
-	@GetMapping("/emergencies/count")
-	public Long getCountEmergency() {
-		return emergencyService.getCountEmergency();
-	}
-
 	@PostMapping("/emergencies")
 	public Emergency createEmergencyLog(@RequestBody Emergency emergency) {
-		Emergency addedEmergency = emergencyService.requestMedicalEmergency(emergency);
+		Emergency addedEmergency = emergencyService
+				.requestMedicalEmergency(emergency);
 		return addedEmergency;
 	}
 }

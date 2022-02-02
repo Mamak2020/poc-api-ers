@@ -43,23 +43,31 @@ public class EmergencyService {
 		try {
 
 			/* => Search the patient geo location */
-			if (emergency.getPatientLatitude() == null || emergency.getPatientLongitude() == null) {
+			if (emergency.getPatientLatitude() == null
+					|| emergency.getPatientLongitude() == null) {
 				emergency.setPatientLatitude((double) 10);
 				emergency.setPatientLongitude((double) 10);
 			}
 
 			/*
-			 * => Search the hospitals from zone and pathology with available beds
+			 * => Search the hospitals from zone and pathology with available
+			 * beds
 			 */
 			List<HospitalPathologyDto> hospitalList = hospitalPathologyService
-					.findAvailableHospitals(emergency.getIdZone(), emergency.getIdPathology());
+					.findAvailableHospitals(emergency.getIdZone(),
+							emergency.getIdPathology());
 			if (hospitalList.isEmpty() == true) {
-				// No available beds for the patient pathology, search with Default service
-				System.out.println("Pas d'hopitaux de libre dans la pathologie");
-				hospitalList = hospitalPathologyService.findAvailableHospitals(emergency.getIdZone(), DEFAULT_SERVICE);
+				// No available beds for the patient pathology, search with
+				// Default service
+				System.out
+						.println("Pas d'hopitaux de libre dans la pathologie");
+				hospitalList = hospitalPathologyService.findAvailableHospitals(
+						emergency.getIdZone(), DEFAULT_SERVICE);
 				if (hospitalList.isEmpty() == true) {
-					// No available beds for the patient into the search zone => ALERT !!!
-					System.out.println("Pas d'hopitaux dans la zone du patient !!!");
+					// No available beds for the patient into the search zone =>
+					// ALERT !!!
+					System.out.println(
+							"Pas d'hopitaux dans la zone du patient !!!");
 				}
 			}
 
@@ -69,16 +77,20 @@ public class EmergencyService {
 
 			// MAG => TO BE changed to a for loop
 			for (HospitalPathologyDto item : hospitalList) {
-				long distanceItem = (long) DistanceUtils.calcDistance(emergency.getPatientLatitude(),
-						emergency.getPatientLongitude(), item.getLatitude(), item.getLongitude());
-				// System.out.println("Index : " + i + " Distance : " + distanceItem);
+				long distanceItem = (long) DistanceUtils.calcDistance(
+						emergency.getPatientLatitude(),
+						emergency.getPatientLongitude(), item.getLatitude(),
+						item.getLongitude());
+				// System.out.println("Index : " + i + " Distance : " +
+				// distanceItem);
 				if ((distanceItem < distance) || (i == 0)) {
 					index = i;
 					distance = distanceItem;
 				}
 				i++;
 			}
-			// System.out.println("indexFound : " + index + " Distance : " + distance);
+			// System.out.println("indexFound : " + index + " Distance : " +
+			// distance);
 
 			// Get the nearest hospital
 			HospitalPathologyDto hospitalFound = hospitalList.get(index);
@@ -89,7 +101,8 @@ public class EmergencyService {
 			hospitalPathologyService.bookingBed(hospitalFound.getIdService());
 
 			/*
-			 * => Complete the log emergency request with the nearest hospital information
+			 * => Complete the log emergency request with the nearest hospital
+			 * information
 			 */
 			emergency.setIdHospital(hospitalFound.getId());
 			emergency.setHospitalName(hospitalFound.getName());
@@ -102,9 +115,11 @@ public class EmergencyService {
 
 			// emergency.setDtResponse(LocalDateTime.now());
 			String instructions;
-			instructions = "Réservation: " + hospitalFound.getName() + " à " + hospitalFound.getAddress()
-					+ " - Lattitude : " + hospitalFound.getLatitude() + " - Longitute : " + hospitalFound.getLongitude()
-					+ " - Distance: " + distance + " kms" + " - Service: " + hospitalFound.getServiceName();
+			instructions = "Réservation: " + hospitalFound.getName() + " à "
+					+ hospitalFound.getAddress() + " - Lattitude : "
+					+ hospitalFound.getLatitude() + " - Longitute : "
+					+ hospitalFound.getLongitude() + " - Distance: " + distance
+					+ " kms" + " - Service: " + hospitalFound.getServiceName();
 
 			emergency.setInstructions(instructions);
 
@@ -116,10 +131,6 @@ public class EmergencyService {
 		/* => Save and return the the nearest hospital information */
 		return emergencyRepository.save(emergency);
 
-	}
-
-	public long getCountEmergency() {
-		return emergencyRepository.count();
 	}
 
 }

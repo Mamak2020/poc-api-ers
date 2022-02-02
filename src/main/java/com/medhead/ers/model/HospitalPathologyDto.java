@@ -2,11 +2,11 @@ package com.medhead.ers.model;
 
 public interface HospitalPathologyDto {
 
-	Long getId();
+	Long getId(); /* Hospital Id */
 
-	String getName();
+	String getName(); /* Hospital Name */
 
-	String getAddress();
+	String getAddress(); /* Hospital */
 
 	Double getLatitude();
 
@@ -16,7 +16,7 @@ public interface HospitalPathologyDto {
 
 	String getServiceName();
 
-	Long getDistance();
+	// Long getDistance();
 
-	void setDistance(Long distance); // MAG => KO
+	// void setDistance(Long distance); // MAG => KO
 }
