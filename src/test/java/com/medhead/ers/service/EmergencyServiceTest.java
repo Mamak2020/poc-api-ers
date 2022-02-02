@@ -11,6 +11,7 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Timeout;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,10 +62,10 @@ class EmergencyServiceTest {
 				MessageFormat.format("Durée du test : {0} ms", duration));
 	}
 
-	@Timeout(unit = TimeUnit.MILLISECONDS, value = 4000)
+	@Timeout(unit = TimeUnit.MILLISECONDS, value = 200)
+	@DisplayName("Réserve un lit dans le service Chirurgie cardio de l'hôpital le plus proche de Lunay")
 	@Test
 	void testCreateEmergency() throws Exception {
-		// Use case : No available beds change to default service
 		String instruction = "Réservation: Hopital de Meaux à Meaux - Lattitude : 3.0 - Longitute : 3.0 - Distance: 157 kms - Service: Soins intensifs";
 
 		// Given
@@ -75,9 +76,9 @@ class EmergencyServiceTest {
 		emergency.setPatientLastName("Moss");
 		emergency.setPatientGender('M');
 		emergency.setPatientAge((long) 50);
-		emergency.setPatientAddress("111 La Fosse 41360 Lunay");
-		emergency.setPatientLatitude((double) 47.833);
-		emergency.setPatientLongitude((double) 0.781);
+		emergency.setPatientAddress("20 rue du Progrès 41360 Lunay");
+		emergency.setPatientLatitude((double) 47.8106061);
+		emergency.setPatientLongitude((double) 0.9128109);
 		emergency.setIdPathology((long) 70);
 
 		// When
@@ -85,9 +86,10 @@ class EmergencyServiceTest {
 
 		// Then
 		assertThat(result.getIdHospital()).isEqualTo(1);
-
 		assertThat(result.getIdHospitalService()).isEqualTo(1);
 		// assertThat(result.getInstructions()).isEqualTo(instruction);
+
+		// Use case : No available beds change to default service
 
 	}
 

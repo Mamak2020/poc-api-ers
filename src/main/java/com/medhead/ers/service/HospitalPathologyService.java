@@ -28,11 +28,12 @@ public class HospitalPathologyService {
 	}
 
 	public int bookingBed(final long id) {
-
 		return hospitalPathologyRepository.bookingBed(id);
 	}
 
-	public List<HospitalPathologyDto> findAvailableHospitals(Long idZone, Long idPathology) {
-		return hospitalPathologyRepository.findAvailableHospitals(idZone, idPathology);
+	public List<HospitalPathologyDto> findAvailableHospitals(Long idZone,
+			Long idPathology) {
+		return hospitalPathologyRepository.findAvailableHospitals(idZone,
+				idPathology);
 	}
 }

@@ -8,7 +8,7 @@ import com.medhead.ers.model.HospitalPathology;
 import com.medhead.ers.service.HospitalPathologyService;
 
 @RestController
-public class PathologyController {
+public class HospitalPathologyController {
 	@Autowired
 	private HospitalPathologyService hospitalPathologyService;
 

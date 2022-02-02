@@ -22,7 +22,7 @@ patient_first_name, patient_gender,patient_age, patient_address,patient_latitude
 id_pathology ,id_hospital ,hospital_name, hospital_address,hospital_latitude ,hospital_longitude ,
 instructions,id_hospital_service,hospital_service_name, distance) 
 VALUES
-(1,11,1,1,'Morteau','Magalie','F',40,'111 La Fosse 41360 Lunay',47.833, 0.781,
+(1,11,1,1,'Morteau','Magalie','F',40,'20 rue du Progrès 41360 Lunay',47.8106061, 0.9128109,
 70,1,'CH CHATEAUDUN','Route de Jallans 28205 CHATEAUDUN CEDEX',48.0743644,1.3582561,
 'blblabla jkjjkj ','1','Cardio',100);
 
