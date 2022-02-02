@@ -30,7 +30,7 @@ jobs:
 
   build:
     #Depends on test's job
-    needs: tests
+   # needs: tests
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
