@@ -17,13 +17,14 @@ Il s'agit d'un POC permettant de vérifier que le sous sytème ERS de la future 
 
 ## REST API - endpoints:
 
-+ [/hospitals GET](#list-hospitals)
-+ [/hospitals/{id} GET](#find-one-hospital)
-+ [/pathologies GET](#list-pathologies)
-+ [/pathologies/{id} GET](#find-one-pathologie)
 + [/emergencies GET](#list-emergencies-requests)
 + [/emergencies/{id} GET](#find-one-emergency-request)
 + [/emergencies POST](#create-emergency-request)
++ [/hospitals GET](#list-hospitals)
++ [/hospitals/{id} GET](#find-one-hospital)
++ [/pathologies GET](#list-hospitals-for-all-specialisations)
++ [/pathologies/{id} GET](#list-hospitals-for-a-specialisation)
+
 
 ## Build
 
