@@ -87,8 +87,8 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}     
 
   deploy:
-    #Depends on test's job
     name: Deploy
+    #Depends on Sonar's job
     needs: sonar
     runs-on: ubuntu-latest
     steps:
