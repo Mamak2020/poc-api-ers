@@ -68,9 +68,18 @@ jobs:
         restore-keys: ${{ runner.os }}-m2
 
     - name: Run Tests
-      #run: mvn -B test
-      run: mvn surefire-report:report
+      run: mvn -B test
       
+    - name: Surefire Report
+      uses: ScaCap/action-surefire-report@v1.0.5
+      #with:
+        #report_paths: # optional, default is **/surefire-reports/TEST-*.xml, **/failsafe-reports/TEST-*.xml
+        # check name for test reports
+        #check_name: # optional, default is Test Report
+        # fail run if there were test failures
+        #"fail_on_test_failures: # optional, default is false
+        # fail run if there were no test results found
+        #fail_if_no_tests: # optional, default is true
 
   #Sonar's Job
   sonar:
