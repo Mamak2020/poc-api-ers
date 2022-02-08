@@ -23,15 +23,7 @@ jobs:
       with:
         java-version: '17'
         distribution: 'temurin'
-        #cache: maven
-       #Set up Maven cache
-    - name: Cache Maven packages
-      #This action allows caching dependencies and build outputs to improve workflow execution time.
-      uses: actions/cache@v1
-      with:
-        path: ~/.m2
-        key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
-        restore-keys: ${{ runner.os }}-m2
+        cache: maven
     - name: Build with Maven
       run: mvn -B package --file pom.xml
     - name: Upload JAR
@@ -56,31 +48,10 @@ jobs:
       with:
         java-version: '17'
         distribution: 'temurin'
-       # cache: maven
-
-       #Set up Maven cache
-    - name: Cache Maven packages
-      #This action allows caching dependencies and build outputs to improve workflow execution time.
-      uses: actions/cache@v1
-      with:
-        path: ~/.m2
-        key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
-        restore-keys: ${{ runner.os }}-m2
-
+        cache: maven
     - name: Run Tests
       run: mvn -B test
       
-    - name: Surefire Report
-      uses: ScaCap/action-surefire-report@v1.0.5
-      #with:
-        #report_paths: # optional, default is **/surefire-reports/TEST-*.xml, **/failsafe-reports/TEST-*.xml
-        # check name for test reports
-        #check_name: # optional, default is Test Report
-        # fail run if there were test failures
-        #"fail_on_test_failures: # optional, default is false
-        # fail run if there were no test results found
-        #fail_if_no_tests: # optional, default is true
-
   #Sonar's Job
   sonar:
     #Depends on test's job
