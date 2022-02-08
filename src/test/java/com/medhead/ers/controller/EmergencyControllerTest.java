@@ -71,7 +71,7 @@ class EmergencyControllerTest {
 	void testCreateEmergency2() throws Exception {
 
 		// Given
-		final String jsonBody = "{" + "\"idZone\":2," + "\"idResponder\":1,"
+		final String jsonBody = "{" + "\"idZone\":24," + "\"idResponder\":1,"
 				+ "\"idPatient\":2," + "\"patientFirstName\":\"Maurice\","
 				+ "\"patientLastName\":\"Moss\"," + "\"patientGender\":\"M\","
 				+ "\"patientAge\":50,"
