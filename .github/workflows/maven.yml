@@ -68,7 +68,9 @@ jobs:
         restore-keys: ${{ runner.os }}-m2
 
     - name: Run Tests
-      run: mvn -B test
+      #run: mvn -B test
+      run: mvn surefire-report:report
+      
 
   #Sonar's Job
   sonar:
