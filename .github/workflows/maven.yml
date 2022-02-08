@@ -70,6 +70,7 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
           cache: maven
+          fetch-depth: 0
 
       #Set up SonarCloud cache
       - name: Cache SonarCloud packages
