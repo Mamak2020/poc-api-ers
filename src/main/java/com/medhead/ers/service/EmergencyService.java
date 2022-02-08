@@ -1,5 +1,7 @@
 package com.medhead.ers.service;
 
+import java.time.Duration;
+import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
 
@@ -13,9 +15,6 @@ import com.medhead.ers.utils.DistanceUtils;
 
 import lombok.Data;
 
-/**
- * @author Mag ******************** WORK IN PROGRESS ...
- */
 @Data
 @Service
 public class EmergencyService {
@@ -40,13 +39,15 @@ public class EmergencyService {
 	}
 
 	public Emergency requestMedicalEmergency(Emergency emergency) {
+		final Instant startedAt = Instant.now();
+
 		try {
 
 			/* => Search the patient geo location */
 			if (emergency.getPatientLatitude() == null
 					|| emergency.getPatientLongitude() == null) {
-				emergency.setPatientLatitude((double) 10);
-				emergency.setPatientLongitude((double) 10);
+				emergency.setPatientLatitude((double) 47);
+				emergency.setPatientLongitude((double) 1);
 			}
 
 			/*
@@ -56,18 +57,30 @@ public class EmergencyService {
 			List<HospitalPathologyDto> hospitalList = hospitalPathologyService
 					.findAvailableHospitals(emergency.getIdZone(),
 							emergency.getIdPathology());
-			if (hospitalList.isEmpty() == true) {
-				// No available beds for the patient pathology, search with
-				// Default service
+
+			/*
+			 * => No available beds for the patient pathology, search with
+			 * Default service
+			 */
+			if (hospitalList.isEmpty()) {
 				System.out
 						.println("Pas d'hopitaux de libre dans la pathologie");
 				hospitalList = hospitalPathologyService.findAvailableHospitals(
 						emergency.getIdZone(), DEFAULT_SERVICE);
-				if (hospitalList.isEmpty() == true) {
+				if (hospitalList.isEmpty()) {
 					// No available beds for the patient into the search zone =>
 					// ALERT !!!
-					System.out.println(
-							"Pas d'hopitaux dans la zone du patient !!!");
+					/*
+					 * System.out.println(
+					 * "Pas d'hopitaux dans la zone du patient !!!");
+					 */
+					/*
+					 * => Save and return the the nearest hospital information
+					 */
+					emergency.setInstructions(
+							"ALerte!!! Pas de lits de disponible dans les hopitaux de la zone d'intervention du patient. Faire une ERS dans zones alentoures.)");
+					return emergencyRepository.save(emergency);
+
 				}
 			}
 
@@ -104,6 +117,7 @@ public class EmergencyService {
 			 * => Complete the log emergency request with the nearest hospital
 			 * information
 			 */
+			// emergency.setDtRequest(startedAt);
 			emergency.setIdHospital(hospitalFound.getId());
 			emergency.setHospitalName(hospitalFound.getName());
 			emergency.setHospitalAddress(hospitalFound.getAddress());
@@ -123,9 +137,15 @@ public class EmergencyService {
 
 			emergency.setInstructions(instructions);
 
+			final Instant endedAt = Instant.now();
+			final long duration = Duration.between(startedAt, endedAt)
+					.toMillis();
+			System.out.println(
+					"Durée: " + duration + " ms, startedAt: " + startedAt);
+
 		} catch (Exception e) {
 			// TODO: handle exception
-			e.printStackTrace();
+			// logger.log;
 		}
 
 		/* => Save and return the the nearest hospital information */

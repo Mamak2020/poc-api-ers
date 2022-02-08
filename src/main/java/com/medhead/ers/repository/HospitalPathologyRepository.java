@@ -22,13 +22,13 @@ public interface HospitalPathologyRepository
 	int bookingBed(long id);
 
 	@Query(value = "SELECT h.id id, h.name name, h.address address, h.latitude latitude, h.longitude longitude, hp.id idservice, p.name_pathology serviceName\r\n"
-			+ "		FROM public.hospital h, hospital_pathology hp, pathology p\r\n"
-			+ "		where h.id_zone=?\r\n"
-			+ "		and h.is_available_bed = true\r\n"
-			+ "		and hp.id_hospital = h.id\r\n"
-			+ "		and hp.available_beds > 0\r\n"
-			+ "		and  hp.id_pathology = ?\r\n"
-			+ "		and hp.id_pathology = p.id", nativeQuery = true)
+			+ "FROM public.hospital h, hospital_pathology hp, pathology p\r\n"
+			+ "where h.id_zone=?\r\n" + "and h.is_available_bed = true\r\n"
+			+ "and hp.id_hospital = h.id\r\n" + "and hp.available_beds > 0\r\n"
+			+ "and  hp.id_pathology = ?\r\n"
+			+ "and hp.id_pathology = p.id", nativeQuery = true)
 	List<HospitalPathologyDto> findAvailableHospitals(long idZone,
 			long idPathology);
+
+	Iterable<HospitalPathology> findByIdPathology(Long idPathology);
 }
