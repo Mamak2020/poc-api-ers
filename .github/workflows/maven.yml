@@ -110,6 +110,7 @@ jobs:
         name: API-ERS
         #From this path
         #path: target/ers-0.0.1-SNAPSHOT.jar
+        path: target/*.jar
         
         
     
