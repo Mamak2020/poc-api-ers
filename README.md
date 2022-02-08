@@ -25,41 +25,35 @@ Il s'agit d'un POC permettant de vérifier que le sous sytème ERS de la future 
 + `/pathologies GET` retourne la liste des spécialisations et les hôpitaux
 + `/pathologies/{id} GET` retourne la liste des hôpitaux pour une pathologie à traiter
 
+## Persistence
+
+La persistance de ce projet est configurée à l'aide de Spring Data JPA et utilise la base de données "H2" intégrée à java et chargée en mémoire pour faciliter les tests 
+et pour l'intégration continue, mais qui est entièrement compatible avec de nombreux technologies de base de données standard comme Postgres. D'ailleurs on utilise une base de 
+données Postgres pour les test manuels et automatiques des fonctionnalités de l'API via l'outil Postman. 
 
 ## Build
 
-This project is set up using Maven. Build configuration can be found at `pom.xml`.
+Ce projet utilise Maven. La configuration du Build peut être trouvé dans le `pom.xml`.
 
-To build project:
-- clone project from this repository
-- build `jar` file using command `mvn clean package`
-- run `jar` file using command `java -jar ers-0.0.1-SNAPSHOT.jar`
+Pour build le project:
+- cloner le project depuis ce repository
+- build le fichier`jar` avec la commande `mvn clean package`
+- run le fichier `jar` avec la commande `java -jar ers-0.0.1-SNAPSHOT.jar`
 
 ## Tests
 
-Tests are separated into two classpaths: `src/test` for unit tests, and `src/itest` for integration tests. 
+Voir le plan de test dans le répertoire doc.
 
-To run unit tests:
+## CI/CD pipeline on Github
 
-  `mvn clean test`
-  
-To run integration tests
+Le pipeline sous Github est configuré pour :
 
-   `mvn clean test -Pintegration-testing`
-   
-To run performance tests 
-    `mvn ....`
+  1. Run les tests
+  2. Build le projet 
+  3. Verify avec SoundCloud
+  4. Deploy le fichier jar
 
-## CI/CD pipeline on GitLab
-
-Le pipeline sous GitLab est configuré pour :
-
-  1. Build le projet
-  2. Run les tests
-  3. Build Docker image
-  4. Push image sur `hub.docker.com`
-
-La configuration du pipeline sous GitLab se trouve 
-lien sur le fichier .yml
+La configuration du pipeline sous Github se trouve 
+lien sur le fichier [.workflows/maven.yml](.workflows/maven.yml)
 
 ### Setting up
