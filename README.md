@@ -42,7 +42,7 @@ Pour build le project:
 
 ## Tests
 
-Voir le plan de test dans le répertoire doc.
+Voir la documentation du plan de test dans le répertoire doc.
 
 ## CI/CD pipeline on Github
 
@@ -54,6 +54,8 @@ Le pipeline sous Github est configuré pour :
   4. Deploy le fichier jar
 
 La configuration du pipeline sous Github se trouve 
-lien sur le fichier [.workflows/maven.yml](.workflows/maven.yml)
+lien sur le fichier [.github/workflows/maven.yml](.workflows/maven.yml)
+
+Voir la documentation du pipeline CI/CD dans le répertoire doc.
 
 ### Setting up
