@@ -27,9 +27,9 @@ Il s'agit d'un POC permettant de vérifier que le sous sytème ERS de la future 
 
 ## Persistence
 
-La persistance de ce projet est configurée à l'aide de Spring Data JPA et utilise la base de données "H2" intégrée à java et chargée en mémoire pour faciliter les tests 
+La persistance de ce projet est configurée à l'aide de Spring Data JPA et utilise la base de données `H2` intégrée à java et chargée en mémoire pour faciliter les tests 
 et pour l'intégration continue, mais qui est entièrement compatible avec de nombreux technologies de base de données standard comme Postgres. D'ailleurs on utilise une base de 
-données Postgres pour les test manuels et automatiques des fonctionnalités de l'API via l'outil Postman. 
+données `Postgres` pour les test manuels et automatiques des fonctionnalités de l'API via l'outil `Postman`. 
 
 ## Build
 
@@ -54,7 +54,7 @@ Le pipeline sous Github est configuré pour :
   4. Deploy le fichier jar
 
 La configuration du pipeline sous Github se trouve 
-lien sur le fichier [.github/workflows/maven.yml](.workflows/maven.yml)
+dans le fichier [.github/workflows/maven.yml](.github/workflows/maven.yml)
 
 Voir la documentation du pipeline CI/CD dans le répertoire doc.
 
