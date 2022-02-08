@@ -9,7 +9,6 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -18,7 +17,6 @@ import com.medhead.ers.model.HospitalPathologyDto;
 import com.medhead.ers.repository.HospitalPathologyRepository;
 
 @SpringBootTest
-@Tag("IntegrationTest")
 class HospitalPathologyServiceTest {
 
 	@Autowired
@@ -60,19 +58,19 @@ class HospitalPathologyServiceTest {
 				.isEqualTo("Chirurgie cardiothoracique");
 	}
 
-	@Test
-	@DisplayName("Réserve un lit dans le service Chirurgie cardio de l'hôpital de Chateaudun")
-	void testBookingBed() {
-
-		// Given
-		long idService = 11;
-
-		// When
-		hospitalPathologyService.bookingBed(idService);
-
-		// Then
-		assertThat(hospitalPathologyRepository.findById(idService)).isNotNull();
-
-	}
-
+	/*
+	 * @Test
+	 * 
+	 * @DisplayName("Réserve un lit dans le service Chirurgie cardio de l'hôpital de Chateaudun"
+	 * ) void testBookingBed() {
+	 * 
+	 * // Given long idService = 11;
+	 * 
+	 * // When hospitalPathologyService.bookingBed(idService);
+	 * 
+	 * // Then
+	 * assertThat(hospitalPathologyRepository.findById(idService)).isNotNull();
+	 * 
+	 * }
+	 */
 }

@@ -20,22 +20,22 @@ import org.springframework.test.web.servlet.MvcResult;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-@Tag("IntegrationTest")
-@DisplayName("Tests d'intégration API ERS")
+@Tag("ApiErsTest")
+@DisplayName("Tests Endpoints API ERS")
 class EmergencyControllerTest {
 
 	@Autowired
 	public MockMvc mockMvc;
 
 	@Test
-	@DisplayName("Le journal d'intervention des urgences médicales pour id=1 concerne la patiente Magalie")
+	@DisplayName("Dans le journal d'intervention des urgences médicales pour id=1 concerne la patiente Magalie")
 	void testGetEmergency() throws Exception {
 		mockMvc.perform(get("/emergencies/{id}", 1)).andExpect(status().isOk())
 				.andExpect(jsonPath("$.patientFirstName").value("Magalie"));
 	}
 
 	@Test
-	@DisplayName("Dans le journal d'intervention des urgences médicales des urgences médicales")
+	@DisplayName("Dans le journal d'intervention des urgences médicales on a le mot Lunay")
 	void testGetEmergencies() throws Exception {
 		mockMvc.perform(get("/emergencies")).andExpect(status().isOk())
 				.andExpect(content().string(containsString("Lunay")));
@@ -43,7 +43,7 @@ class EmergencyControllerTest {
 
 	@Test
 	@DisplayName("Cas urgence Cardiologie à Lunay, dispo à Blois")
-	void testCreateEmergency1() throws Exception {
+	void test1CreateEmergency() throws Exception {
 
 		// Given
 		final String jsonBody = "{" + "\"idZone\":24," + "\"idResponder\":1,"
@@ -68,7 +68,7 @@ class EmergencyControllerTest {
 
 	@Test
 	@DisplayName("Cas urgence Réspiratoire à Lunay, dispo en Urgence à Vendôme")
-	void testCreateEmergency2() throws Exception {
+	void test2CreateEmergency() throws Exception {
 
 		// Given
 		final String jsonBody = "{" + "\"idZone\":24," + "\"idResponder\":1,"
@@ -89,6 +89,26 @@ class EmergencyControllerTest {
 				.andExpect(jsonPath("$.hospitalServiceName")
 						.value("Médecine d'urgence"));
 
+	}
+	@Test
+	@DisplayName("Cas urgence Réspiratoire à Saint-Calais, ALERTE aucun hôpital dispo dans la région")
+	void test3CreateEmergency() throws Exception {
+
+		// Given
+		final String jsonBody = "{" + "\"idZone\":52," + "\"idResponder\":2,"
+				+ "\"idPatient\":3," + "\"patientFirstName\":\"Roy\","
+				+ "\"patientLastName\":\"Trenneman\","
+				+ "\"patientGender\":\"M\"," + "\"patientAge\":36,"
+				+ "\"patientAddress\":\"Rue Amédée-Savidan 72120 Saint-Calais\","
+				+ "\"patientLatitude\":47.9211271,"
+				+ "\"patientLongitude\":0.7429723," + "\"idPathology\":41,"
+				+ "\"dtStart\":null}";
+		// When
+		mockMvc.perform(post("/emergencies")
+				.contentType(MediaType.APPLICATION_JSON).content(jsonBody))
+				// Then
+				.andExpect(status().isOk())
+				.andExpect(jsonPath("$.hospitalName").isEmpty());
 	}
 
 }

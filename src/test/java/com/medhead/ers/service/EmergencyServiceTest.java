@@ -10,13 +10,11 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.medhead.ers.model.Emergency;
-@Tag("IntegrationTest")
 @SpringBootTest
 class EmergencyServiceTest {
 
@@ -60,7 +58,6 @@ class EmergencyServiceTest {
 		// MessageFormat.format("Durée du test : {0} ms", duration));
 	}
 
-	// @Timeout(unit = TimeUnit.MILLISECONDS, value = 600)
 	@DisplayName("Réserve un lit dans le service Chirurgie cardio de l'hôpital le plus proche de Lunay")
 	@Test
 	void testCreateEmergency() throws Exception {

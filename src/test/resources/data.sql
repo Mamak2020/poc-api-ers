@@ -25,7 +25,9 @@ INSERT INTO hospital (id,id_zone, name, address, latitude, longitude,  is_availa
 (9,24, 'CHR ORLÉANS - HÔPITAL DE LA SOURCE','14 Av. de l''Hôpital 45100 ORLEANS',47.8353634,1.9201458,true),
 (10,24,'ORELIANCE - REINE BLANCHE','555 Av. Jacqueline Auriol 45770 SARAN',47.9401154,1.8797335,true),
 (11,24,'CHU BRETONNEAU - TOURS','2, boulevard tonnellé 37000 Tours',47.3914052,0.6681828,true),
-(12,24,'CH AGGLOMERATION MONTARGOISE','658 Rue des Bourgoins 45200 AMILLY',47.9972668,2.7729858,true);
+(12,24,'CH AGGLOMERATION MONTARGOISE','658 Rue des Bourgoins 45200 AMILLY',47.9972668,2.7729858,true),
+(13,52,'CH Le Mans',' 194 Av. Rubillard, 72000 Le Mans',48.013743,0.1762351,false);
+
 
 INSERT INTO hospital_pathology (id, id_hospital, id_pathology, available_beds) VALUES
 (1,1,16,10),
@@ -59,7 +61,8 @@ INSERT INTO hospital_pathology (id, id_hospital, id_pathology, available_beds) V
 (29,11,77,10),
 (30,12,16,10),
 (31,5,75,10),
-(32,3,41,0);
+(32,3,41,0),
+(33,13,41,0);
 
 
 INSERT INTO emergency_log (id, id_zone, id_responder, id_patient, patient_last_name, 

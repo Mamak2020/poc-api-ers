@@ -70,13 +70,6 @@ public class EmergencyService {
 				if (hospitalList.isEmpty()) {
 					// No available beds for the patient into the search zone =>
 					// ALERT !!!
-					/*
-					 * System.out.println(
-					 * "Pas d'hopitaux dans la zone du patient !!!");
-					 */
-					/*
-					 * => Save and return the the nearest hospital information
-					 */
 					emergency.setInstructions(
 							"ALerte!!! Pas de lits de disponible dans les hopitaux de la zone d'intervention du patient. Faire une ERS dans zones alentoures.)");
 					return emergencyRepository.save(emergency);
@@ -144,6 +137,7 @@ public class EmergencyService {
 					"Durée: " + duration + " ms, startedAt: " + startedAt);
 
 		} catch (Exception e) {
+			throw e;
 			// TODO: handle exception
 			// logger.log;
 		}

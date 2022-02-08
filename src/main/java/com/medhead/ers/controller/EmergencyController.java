@@ -29,10 +29,6 @@ public class EmergencyController {
 
 	@PostMapping("/emergencies")
 	public Emergency createEmergencyLog(@RequestBody Emergency emergency) {
-		try {
-			return emergencyService.requestMedicalEmergency(emergency);
-		} catch (Exception e) {
-			throw e;
-		}
+		return emergencyService.requestMedicalEmergency(emergency);
 	}
 }
