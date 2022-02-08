@@ -17,8 +17,8 @@ Il s'agit d'un POC permettant de vérifier que le sous sytème ERS de la future 
 
 ## REST API - endpoints:
 
-+ [/emergencies GET](#list-emergencies-requests) retourne l'historique du journal d'intervention pour les urgences médicales
-+ [/emergencies/{id} GET](#find-one-emergency-request) retourne le détail d'une intervention en urgence médicale
++ `/emergencies GET` retourne l'historique du journal d'intervention pour les urgences médicales
++ "/emergencies/{id} GET" (#find-one-emergency-request) retourne le détail d'une intervention en urgence médicale
 + [/emergencies POST](#create-emergency-request) demande d'intervention pour une urgence médicale, retourne les coordonnées de l'hôpital de le plus proche
 + [/hospitals GET](#list-hospitals) retourne la liste des hôpitaux
 + [/hospitals/{id} GET](#find-one-hospital) retourne le détail d'un hôpital
