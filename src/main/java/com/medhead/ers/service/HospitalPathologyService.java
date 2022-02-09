@@ -17,11 +17,10 @@ public class HospitalPathologyService {
 	@Autowired
 	private HospitalPathologyRepository hospitalPathologyRepository;
 
-	/*
-	 * public Iterable<HospitalPathology> getHospitalPathology(final Long
-	 * idHospital) { return
-	 * hospitalPathologyRepository.findByIdHospital(idHospital); }
-	 */
+	public Iterable<HospitalPathology> getHospitalByPathology(
+			Long idPathology) {
+		return hospitalPathologyRepository.findByIdPathology(idPathology);
+	}
 
 	public Iterable<HospitalPathology> getHospitalPathologies() {
 		return hospitalPathologyRepository.findAll();

@@ -1,5 +1,7 @@
 package com.medhead.ers.service;
 
+import java.time.Duration;
+import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
 
@@ -13,9 +15,6 @@ import com.medhead.ers.utils.DistanceUtils;
 
 import lombok.Data;
 
-/**
- * @author Mag ******************** WORK IN PROGRESS ...
- */
 @Data
 @Service
 public class EmergencyService {
@@ -40,93 +39,96 @@ public class EmergencyService {
 	}
 
 	public Emergency requestMedicalEmergency(Emergency emergency) {
-		try {
+		final Instant startedAt = Instant.now();
 
-			/* => Search the patient geo location */
-			if (emergency.getPatientLatitude() == null
-					|| emergency.getPatientLongitude() == null) {
-				emergency.setPatientLatitude((double) 10);
-				emergency.setPatientLongitude((double) 10);
-			}
-
-			/*
-			 * => Search the hospitals from zone and pathology with available
-			 * beds
-			 */
-			List<HospitalPathologyDto> hospitalList = hospitalPathologyService
-					.findAvailableHospitals(emergency.getIdZone(),
-							emergency.getIdPathology());
-			if (hospitalList.isEmpty() == true) {
-				// No available beds for the patient pathology, search with
-				// Default service
-				System.out
-						.println("Pas d'hopitaux de libre dans la pathologie");
-				hospitalList = hospitalPathologyService.findAvailableHospitals(
-						emergency.getIdZone(), DEFAULT_SERVICE);
-				if (hospitalList.isEmpty() == true) {
-					// No available beds for the patient into the search zone =>
-					// ALERT !!!
-					System.out.println(
-							"Pas d'hopitaux dans la zone du patient !!!");
-				}
-			}
-
-			long distance = 0;
-			int index = 0;
-			int i = 0;
-
-			// MAG => TO BE changed to a for loop
-			for (HospitalPathologyDto item : hospitalList) {
-				long distanceItem = (long) DistanceUtils.calcDistance(
-						emergency.getPatientLatitude(),
-						emergency.getPatientLongitude(), item.getLatitude(),
-						item.getLongitude());
-				// System.out.println("Index : " + i + " Distance : " +
-				// distanceItem);
-				if ((distanceItem < distance) || (i == 0)) {
-					index = i;
-					distance = distanceItem;
-				}
-				i++;
-			}
-			// System.out.println("indexFound : " + index + " Distance : " +
-			// distance);
-
-			// Get the nearest hospital
-			HospitalPathologyDto hospitalFound = hospitalList.get(index);
-
-			/*
-			 * => Book the bed to the nearest hospital
-			 */
-			hospitalPathologyService.bookingBed(hospitalFound.getIdService());
-
-			/*
-			 * => Complete the log emergency request with the nearest hospital
-			 * information
-			 */
-			emergency.setIdHospital(hospitalFound.getId());
-			emergency.setHospitalName(hospitalFound.getName());
-			emergency.setHospitalAddress(hospitalFound.getAddress());
-			emergency.setHospitalLatitude(hospitalFound.getLatitude());
-			emergency.setHospitalLongitude(hospitalFound.getLongitude());
-			emergency.setHospitalServiceName(hospitalFound.getServiceName());
-			emergency.setIdHospitalService(hospitalFound.getIdService());
-			emergency.setDistance(distance);
-
-			// emergency.setDtResponse(LocalDateTime.now());
-			String instructions;
-			instructions = "Réservation: " + hospitalFound.getName() + " à "
-					+ hospitalFound.getAddress() + " - Lattitude : "
-					+ hospitalFound.getLatitude() + " - Longitute : "
-					+ hospitalFound.getLongitude() + " - Distance: " + distance
-					+ " kms" + " - Service: " + hospitalFound.getServiceName();
-
-			emergency.setInstructions(instructions);
-
-		} catch (Exception e) {
-			// TODO: handle exception
-			e.printStackTrace();
+		/* => Search the patient geo location */
+		if (emergency.getPatientLatitude() == null
+				|| emergency.getPatientLongitude() == null) {
+			emergency.setPatientLatitude((double) 47);
+			emergency.setPatientLongitude((double) 1);
 		}
+
+		/*
+		 * => Search the hospitals from zone and pathology with available beds
+		 */
+		List<HospitalPathologyDto> hospitalList = hospitalPathologyService
+				.findAvailableHospitals(emergency.getIdZone(),
+						emergency.getIdPathology());
+
+		/*
+		 * => No available beds for the patient pathology, search with Default
+		 * service
+		 */
+		if (hospitalList.isEmpty()) {
+			System.out.println("Pas d'hopitaux de libre dans la pathologie");
+			hospitalList = hospitalPathologyService.findAvailableHospitals(
+					emergency.getIdZone(), DEFAULT_SERVICE);
+			if (hospitalList.isEmpty()) {
+				// No available beds for the patient into the search zone =>
+				// ALERT !!!
+				emergency.setInstructions(
+						"ALerte!!! Pas de lits de disponible dans les hopitaux de la zone d'intervention du patient. Faire une ERS dans zones alentoures.)");
+				return emergencyRepository.save(emergency);
+
+			}
+		}
+
+		long distance = 0;
+		int index = 0;
+		int i = 0;
+
+		// MAG => TO BE changed to a for loop
+		for (HospitalPathologyDto item : hospitalList) {
+			long distanceItem = (long) DistanceUtils.calcDistance(
+					emergency.getPatientLatitude(),
+					emergency.getPatientLongitude(), item.getLatitude(),
+					item.getLongitude());
+			// System.out.println("Index : " + i + " Distance : " +
+			// distanceItem);
+			if ((distanceItem < distance) || (i == 0)) {
+				index = i;
+				distance = distanceItem;
+			}
+			i++;
+		}
+		// System.out.println("indexFound : " + index + " Distance : " +
+		// distance);
+
+		// Get the nearest hospital
+		HospitalPathologyDto hospitalFound = hospitalList.get(index);
+
+		/*
+		 * => Book the bed to the nearest hospital
+		 */
+		hospitalPathologyService.bookingBed(hospitalFound.getIdService());
+
+		/*
+		 * => Complete the log emergency request with the nearest hospital
+		 * information
+		 */
+		emergency.setIdHospital(hospitalFound.getId());
+		emergency.setHospitalName(hospitalFound.getName());
+		emergency.setHospitalAddress(hospitalFound.getAddress());
+		emergency.setHospitalLatitude(hospitalFound.getLatitude());
+		emergency.setHospitalLongitude(hospitalFound.getLongitude());
+		emergency.setHospitalServiceName(hospitalFound.getServiceName());
+		emergency.setIdHospitalService(hospitalFound.getIdService());
+		emergency.setDistance(distance);
+
+		// emergency.setDtResponse(LocalDateTime.now());
+		String instructions;
+		instructions = "Réservation: " + hospitalFound.getName() + " à "
+				+ hospitalFound.getAddress() + " - Lattitude : "
+				+ hospitalFound.getLatitude() + " - Longitute : "
+				+ hospitalFound.getLongitude() + " - Distance: " + distance
+				+ " kms" + " - Service: " + hospitalFound.getServiceName();
+
+		emergency.setInstructions(instructions);
+
+		final Instant endedAt = Instant.now();
+		final long duration = Duration.between(startedAt, endedAt).toMillis();
+		System.out
+				.println("Durée: " + duration + " ms, startedAt: " + startedAt);
 
 		/* => Save and return the the nearest hospital information */
 		return emergencyRepository.save(emergency);

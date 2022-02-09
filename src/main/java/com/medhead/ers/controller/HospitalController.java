@@ -25,14 +25,4 @@ public class HospitalController {
 		return hospitalService.getHospitals();
 	}
 
-	/*
-	 * @GetMapping("/hospitals/{idZone}/{idPathology}") public Iterable<Hospital>
-	 * getAvailableHospitals(@PathVariable("idZone") final Long idZone,
-	 * 
-	 * @PathVariable("idPathology") final Long idPathology) { return
-	 * hospitalService.findAvailableHospitals(idZone, idPathology);
-	 * 
-	 * }
-	 */
-
 }

@@ -2,10 +2,8 @@ package com.medhead.ers.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import java.text.MessageFormat;
 import java.time.Duration;
 import java.time.Instant;
-import java.util.concurrent.TimeUnit;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
@@ -13,12 +11,10 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.Timeout;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.medhead.ers.model.Emergency;
-
 @SpringBootTest
 class EmergencyServiceTest {
 
@@ -58,18 +54,16 @@ class EmergencyServiceTest {
 		// System.out.println("Appel après chaque test");
 		final Instant endedAt = Instant.now();
 		final long duration = Duration.between(startedAt, endedAt).toMillis();
-		System.out.println(
-				MessageFormat.format("Durée du test : {0} ms", duration));
+		// System.out.println(
+		// MessageFormat.format("Durée du test : {0} ms", duration));
 	}
 
-	@Timeout(unit = TimeUnit.MILLISECONDS, value = 200)
 	@DisplayName("Réserve un lit dans le service Chirurgie cardio de l'hôpital le plus proche de Lunay")
 	@Test
 	void testCreateEmergency() throws Exception {
-		String instruction = "Réservation: Hopital de Meaux à Meaux - Lattitude : 3.0 - Longitute : 3.0 - Distance: 157 kms - Service: Soins intensifs";
 
 		// Given
-		emergency.setIdZone((long) 11);
+		emergency.setIdZone((long) 24);
 		emergency.setIdResponder((long) 1);
 		emergency.setIdPatient((long) 1);
 		emergency.setPatientFirstName("Maurice");
@@ -85,9 +79,8 @@ class EmergencyServiceTest {
 		Emergency result = emergencyService.requestMedicalEmergency(emergency);
 
 		// Then
-		assertThat(result.getIdHospital()).isEqualTo(1);
-		assertThat(result.getIdHospitalService()).isEqualTo(1);
-		// assertThat(result.getInstructions()).isEqualTo(instruction);
+		assertThat(result.getIdHospital()).isEqualTo(3);
+		assertThat(result.getIdHospitalService()).isEqualTo(4);
 
 		// Use case : No available beds change to default service
 
