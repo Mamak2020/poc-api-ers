@@ -23,6 +23,12 @@ public class HospitalPathology {
 	@Column(name = "id_pathology")
 	private Long idPathology;
 
+	/*
+	 * @ManyToOne
+	 * 
+	 * @JoinColumn(name = "id_pathology") HospitalPathology hospitalPathology;
+	 */
+
 	@Column(name = "available_beds")
 	private Long availableBeds;
 
@@ -30,8 +36,4 @@ public class HospitalPathology {
 	@ManyToOne
 	@JoinColumn(name = "id_hospital")
 	Hospital hospital;
-
-	/*
-	 * @Column(name = "id_hospital") private Long idHospital;
-	 */
 }

@@ -1,0 +1,55 @@
+/**
+ * 
+ */
+package com.medhead.ers.controller;
+
+import static org.hamcrest.CoreMatchers.containsString;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.web.servlet.MockMvc;
+
+/**
+ * @author Mag
+ *
+ */
+@SpringBootTest
+@AutoConfigureMockMvc
+@Tag("ApiHospitalPathologyTest")
+@DisplayName("Tests Endpoints Pathologies by hospital")
+class HospitalPathologyControllerTest {
+
+	/**
+	 * Test method for
+	 * {@link com.medhead.ers.controller.HospitalPathologyController#getHospitalPathologies()}.
+	 */
+	@Autowired
+	public MockMvc mockMvc;
+
+	@DisplayName("Dans la liste des spécialisations et les hôpitaux, on a Médecine d'urgence")
+	@Test
+	void testGetHospitalPathologies() throws Exception {
+		mockMvc.perform(get("/pathologies")).andExpect(status().isOk())
+				.andExpect(content().string(containsString("41")));
+	}
+
+	/**
+	 * Test method for
+	 * {@link com.medhead.ers.controller.HospitalPathologyController#getHospitalByPathology(java.lang.Long)}.
+	 */
+
+	@DisplayName("Dans la liste des hôpitaux ayant un service en Neurologie (72), on a l'hôpital TROUSSEAU")
+	@Test
+	void testGetHospitalByPathology() throws Exception {
+		mockMvc.perform(get("/pathologies/{id_pathology}", 72))
+				.andExpect(status().isOk())
+				.andExpect(content().string(containsString("TROUSSEAU")));
+	}
+}
