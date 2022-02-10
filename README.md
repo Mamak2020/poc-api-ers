@@ -49,10 +49,10 @@ Voir la documentation du plan de test dans le répertoire doc.
 
 Le pipeline sous Github est configuré pour :
 
-  1. Run les tests
-  2. Build le projet 
-  3. Verify avec SoundCloud
-  4. Deploy le fichier jar
+  1. Exécuter les tests
+  2. Construire le projet 
+  3. Vérifier la qualité avec SoundCloud
+  4. Déployer le fichier jar
 
 La configuration du pipeline sous Github se trouve 
 dans le fichier [.github/workflows/maven.yml](.github/workflows/maven.yml)
