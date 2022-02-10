@@ -34,8 +34,9 @@ données `Postgres` pour les test manuels et automatiques des fonctionnalités d
 ## Build
 
 Ce projet utilise Maven. La configuration du Build peut être trouvé dans le `pom.xml`.
+Le Build du projet correspond aux phases suivantes selon le Build lifecycles de Maven : validate, compile, test et package
 
-Pour build le project:
+Pour constuire le projet:
 - cloner le project depuis ce repository
 - build le fichier`jar` avec la commande `mvn clean package`
 - run le fichier `jar` avec la commande `java -jar ers-0.0.1-SNAPSHOT.jar`
