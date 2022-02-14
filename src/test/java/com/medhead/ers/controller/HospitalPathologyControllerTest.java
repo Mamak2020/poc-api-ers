@@ -9,7 +9,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -22,7 +21,6 @@ import org.springframework.test.web.servlet.MockMvc;
  */
 @SpringBootTest
 @AutoConfigureMockMvc
-@Tag("ApiHospitalPathologyTest")
 @DisplayName("Tests Endpoints Pathologies by hospital")
 class HospitalPathologyControllerTest {
 
@@ -33,7 +31,7 @@ class HospitalPathologyControllerTest {
 	@Autowired
 	public MockMvc mockMvc;
 
-	@DisplayName("Dans la liste des spécialisations et les hôpitaux, on a Médecine d'urgence")
+	@DisplayName("Given: dans la liste des spécialisations avec ses hôpitaux  When: consulte cette liste Then: on a Médecine Respiratoire")
 	@Test
 	void testGetHospitalPathologies() throws Exception {
 		mockMvc.perform(get("/pathologies")).andExpect(status().isOk())
@@ -45,7 +43,7 @@ class HospitalPathologyControllerTest {
 	 * {@link com.medhead.ers.controller.HospitalPathologyController#getHospitalByPathology(java.lang.Long)}.
 	 */
 
-	@DisplayName("Dans la liste des hôpitaux ayant un service en Neurologie (72), on a l'hôpital TROUSSEAU")
+	@DisplayName("Given: 72 id pour la pathologie Neurologie  When: consulte la liste des spécialisations avec ses hôpitaux Then: on a l'hôpital TROUSSEAU")
 	@Test
 	void testGetHospitalByPathology() throws Exception {
 		mockMvc.perform(get("/pathologies/{id_pathology}", 72))

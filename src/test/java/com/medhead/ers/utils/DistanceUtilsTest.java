@@ -12,8 +12,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 class DistanceUtilsTest {
 
 	@Test
-	@DisplayName("Soit les latitudes et longitudes des points A et B, calcule la distance en kms entre les points A et B selon la formule Haversin")
-	void testCalcDistance() {
+	@DisplayName("Given: les latitudes et longitudes des points A et B "
+			+ "When: calcule la distance en kms entre les points A et B selon la formule Haversine "
+			+ "Then: est de 11kms")
+	void testCalcDistance() throws Exception {
 		// Given
 		final double latA = 47.8106061;
 		final double longA = 0.9128109;

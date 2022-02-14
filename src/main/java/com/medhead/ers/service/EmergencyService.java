@@ -14,9 +14,11 @@ import com.medhead.ers.repository.EmergencyRepository;
 import com.medhead.ers.utils.DistanceUtils;
 
 import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
 
 @Data
 @Service
+@Slf4j
 public class EmergencyService {
 
 	private static final long DEFAULT_SERVICE = 16; // EMERGENCY SERVICE
@@ -38,7 +40,8 @@ public class EmergencyService {
 		return emergencyRepository.findAll();
 	}
 
-	public Emergency requestMedicalEmergency(Emergency emergency) {
+	public Emergency requestMedicalEmergency(Emergency emergency)
+			throws Exception {
 		final Instant startedAt = Instant.now();
 
 		/* => Search the patient geo location */
@@ -60,14 +63,14 @@ public class EmergencyService {
 		 * service
 		 */
 		if (hospitalList.isEmpty()) {
-			System.out.println("Pas d'hopitaux de libre dans la pathologie");
+			// System.out.println("Pas d'hopitaux de libre dans la pathologie");
 			hospitalList = hospitalPathologyService.findAvailableHospitals(
 					emergency.getIdZone(), DEFAULT_SERVICE);
 			if (hospitalList.isEmpty()) {
 				// No available beds for the patient into the search zone =>
 				// ALERT !!!
 				emergency.setInstructions(
-						"ALerte!!! Pas de lits de disponible dans les hopitaux de la zone d'intervention du patient. Faire une ERS dans zones alentoures.)");
+						"Alerte!!! Pas de lits de disponible dans les hopitaux de la zone d'intervention du patient. Faire une ERS dans zones alentoures.)");
 				return emergencyRepository.save(emergency);
 
 			}
@@ -127,8 +130,8 @@ public class EmergencyService {
 
 		final Instant endedAt = Instant.now();
 		final long duration = Duration.between(startedAt, endedAt).toMillis();
-		System.out
-				.println("Durée: " + duration + " ms, startedAt: " + startedAt);
+		// System.out
+		// .println("Durée: " + duration + " ms, startedAt: " + startedAt);
 
 		/* => Save and return the the nearest hospital information */
 		return emergencyRepository.save(emergency);

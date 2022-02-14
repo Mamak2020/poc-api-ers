@@ -26,14 +26,14 @@ INSERT INTO hospital (id,id_zone, name, address, latitude, longitude,  is_availa
 (10,24,'ORELIANCE - REINE BLANCHE','555 Av. Jacqueline Auriol 45770 SARAN',47.9401154,1.8797335,true),
 (11,24,'CHU BRETONNEAU - TOURS','2, boulevard tonnellé 37000 Tours',47.3914052,0.6681828,true),
 (12,24,'CH AGGLOMERATION MONTARGOISE','658 Rue des Bourgoins 45200 AMILLY',47.9972668,2.7729858,true),
-(13,52,'CH Le Mans',' 194 Av. Rubillard, 72000 Le Mans',48.013743,0.1762351,false);
+(13,52,'CH Le Mans','194 Av. Rubillard 72000 Le Mans',48.013743,0.1762351,false);
 
 
 INSERT INTO hospital_pathology (id, id_hospital, id_pathology, available_beds) VALUES
 (1,1,16,10),
-(2,2,16,9),
+(2,2,16,10),
 (3,3,16,10),
-(4,3,70,9),
+(4,3,70,10),
 (5,3,72,10),
 (6,3,75,10),
 (7,3,77,10),
@@ -70,7 +70,8 @@ patient_first_name, patient_gender,patient_age, patient_address,patient_latitude
 id_pathology ,id_hospital ,hospital_name, hospital_address,hospital_latitude ,hospital_longitude ,
 instructions,id_hospital_service,hospital_service_name, distance) 
 VALUES
-(1,11,1,1,'Morteau','Magalie','F',40,'20 rue du Progrès 41360 Lunay',47.8106061, 0.9128109,
+(1,24,1,1,'Morteau','Magalie','F',50,'20 rue du Progrès 41360 Lunay',47.8106061, 0.9128109,
 70,1,'CH CHATEAUDUN','Route de Jallans 28205 CHATEAUDUN CEDEX',48.0743644,1.3582561,
-'blblabla jkjjkj ','1','Cardio',100);
+'Réservation: CH CHATEAUDUN à Route de Jallans 28200 CHATEAUDUN - Lattitude : 48.0743644 - Longitute : 1.3582561 - Distance: 44 kms - Service: Médecine d''urgence',
+16,'Médecine d''urgence',44);
 
