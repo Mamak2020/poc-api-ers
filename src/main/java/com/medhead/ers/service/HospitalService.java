@@ -24,10 +24,4 @@ public class HospitalService {
 		return hospitalRepository.findAll();
 	}
 
-	/*
-	 * public Iterable<Hospital> findAvailableHospitals(Long idZone, Long
-	 * idPathology) { return hospitalRepository.findAvailableHospitals(idZone,
-	 * idPathology); }
-	 */
-
 }

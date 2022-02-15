@@ -58,14 +58,14 @@ class EmergencyServiceTest {
 		// MessageFormat.format("Durée du test : {0} ms", duration));
 	}
 
-	@DisplayName("Réserve un lit dans le service Chirurgie cardio de l'hôpital le plus proche de Lunay")
+	@DisplayName("Given: urgence cardiologie à Lunay When: ERS Then: dispo en Cardio à Blois")
 	@Test
 	void testCreateEmergency() throws Exception {
 
 		// Given
 		emergency.setIdZone((long) 24);
 		emergency.setIdResponder((long) 1);
-		emergency.setIdPatient((long) 1);
+		emergency.setIdPatient((long) 2);
 		emergency.setPatientFirstName("Maurice");
 		emergency.setPatientLastName("Moss");
 		emergency.setPatientGender('M');
@@ -79,10 +79,9 @@ class EmergencyServiceTest {
 		Emergency result = emergencyService.requestMedicalEmergency(emergency);
 
 		// Then
-		assertThat(result.getIdHospital()).isEqualTo(3);
-		assertThat(result.getIdHospitalService()).isEqualTo(4);
-
-		// Use case : No available beds change to default service
+		assertThat(result.getHospitalName()).isEqualTo("CH BLOIS SIMONE VEIL");
+		assertThat(result.getHospitalServiceName())
+				.isEqualTo("Chirurgie cardiothoracique");
 
 	}
 

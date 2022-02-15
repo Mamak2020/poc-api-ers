@@ -1,6 +1,5 @@
 package com.medhead.ers.controller;
 
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -8,19 +7,17 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import org.hamcrest.Matchers;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MvcResult;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-@Tag("ApiErsTest")
 @DisplayName("Tests Endpoints API ERS")
 class EmergencyControllerTest {
 
@@ -28,21 +25,26 @@ class EmergencyControllerTest {
 	public MockMvc mockMvc;
 
 	@Test
-	@DisplayName("Dans le journal d'intervention des urgences médicales pour id=1 concerne la patiente Magalie")
+	@DisplayName("Given: id=1 dans le journal d'intervention des urgences  "
+			+ "When: consulte le log " + "Then: concerne la patiente Magalie")
 	void testGetEmergency() throws Exception {
-		mockMvc.perform(get("/emergencies/{id}", 1)).andExpect(status().isOk())
+		// Given : id = 1
+		// When
+		mockMvc.perform(get("/emergencies/{id}", 1))
+				// Then
+				.andExpect(status().isOk())
 				.andExpect(jsonPath("$.patientFirstName").value("Magalie"));
 	}
 
 	@Test
-	@DisplayName("Dans le journal d'intervention des urgences médicales on a le mot Lunay")
+	@DisplayName("Given: dans le journal d'intervention des urgences  When: consulte le log Then: on a la ville de Lunay")
 	void testGetEmergencies() throws Exception {
 		mockMvc.perform(get("/emergencies")).andExpect(status().isOk())
 				.andExpect(content().string(containsString("Lunay")));
 	}
 
 	@Test
-	@DisplayName("Cas urgence Cardiologie à Lunay, dispo à Blois")
+	@DisplayName("Given: urgence cardiologie à Lunay When: ERS Then: dispo en Cardio à Blois")
 	void test1CreateEmergency() throws Exception {
 
 		// Given
@@ -55,19 +57,16 @@ class EmergencyControllerTest {
 				+ "\"patientLongitude\": 0.9128109," + "\"idPathology\":70,"
 				+ "\"dtStart\":null}";
 		// When
-		final MvcResult result = mockMvc.perform(post("/emergencies")
+		mockMvc.perform(post("/emergencies")
 				.contentType(MediaType.APPLICATION_JSON).content(jsonBody))
 				// Then
-				// .andExpect(status().isOk()).andExpect(jsonPath("$.hospitalName")
-				// .value("CH BLOIS SIMONE VEIL"))
-				.andReturn();
-
-		assertThat(result.getResponse().getContentAsString())
-				.contains("\"hospitalName\":\"CH BLOIS SIMONE VEIL\"");
+				.andExpect(status().isOk())
+				.andExpect(jsonPath("$.hospitalName").value(Matchers
+						.containsStringIgnoringCase("CH BLOIS SIMONE VEIL")));
 	}
 
 	@Test
-	@DisplayName("Cas urgence Réspiratoire à Lunay, dispo en Urgence à Vendôme")
+	@DisplayName("Given: urgence réspiratoire à Lunay When: ERS Then: dispo en Urgence à Vendôme")
 	void test2CreateEmergency() throws Exception {
 
 		// Given
@@ -81,17 +80,20 @@ class EmergencyControllerTest {
 				+ "\"dtStart\":null}";
 		// When
 		mockMvc.perform(post("/emergencies")
-				.contentType(MediaType.APPLICATION_JSON).content(jsonBody))
+				.contentType(MediaType.APPLICATION_JSON_VALUE)
+				.content(jsonBody))
+
 				// Then
 				.andExpect(status().isOk())
 				.andExpect(jsonPath("$.hospitalName")
 						.value("CH VENDOME - MONTOIRE"))
 				.andExpect(jsonPath("$.hospitalServiceName")
-						.value("Médecine d'urgence"));
+						.value(Matchers.containsStringIgnoringCase("urgence")));
 
 	}
+
 	@Test
-	@DisplayName("Cas urgence Réspiratoire à Saint-Calais, ALERTE aucun hôpital dispo dans la région")
+	@DisplayName("Given: urgence réspiratoire à Saint-Calais When: ERS Then: ALERTE aucun hôpital dispo dans la région")
 	void test3CreateEmergency() throws Exception {
 
 		// Given
@@ -108,7 +110,9 @@ class EmergencyControllerTest {
 				.contentType(MediaType.APPLICATION_JSON).content(jsonBody))
 				// Then
 				.andExpect(status().isOk())
-				.andExpect(jsonPath("$.hospitalName").isEmpty());
+				.andExpect(jsonPath("$.hospitalName").isEmpty())
+				.andExpect(jsonPath("$.instructions")
+						.value(Matchers.containsStringIgnoringCase("Alerte")));
 	}
 
 }
