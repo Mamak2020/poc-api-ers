@@ -36,7 +36,8 @@ class HospitalPathologyServiceTest {
 				.findAvailableHospitals(idZone, idPathologie);
 
 		// Then
-		assertThat(result.contains("CHRU TROUSSEAU - CHAMBRAY"));
+		assertThat(result).extracting("name")
+				.contains("CHRU TROUSSEAU - CHAMBRAY");
 	}
 
 }

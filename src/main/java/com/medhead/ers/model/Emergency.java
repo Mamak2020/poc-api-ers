@@ -67,4 +67,7 @@ public class Emergency {
 	@Column(name = "dt_response")
 	private Date dtResponse;
 
+	@Column(name = "duration")
+	private Long duration;
+
 }
