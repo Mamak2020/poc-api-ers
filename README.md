@@ -28,8 +28,8 @@ Il s'agit d'un POC permettant de vérifier que le sous sytème ERS de la future 
 ## Persistence
 
 La persistance de ce projet est configurée à l'aide de Spring Data JPA et utilise la base de données `H2` intégrée à java et chargée en mémoire pour faciliter les tests 
-et pour l'intégration continue, mais qui est entièrement compatible avec de nombreux technologies de base de données standard comme Postgres. D'ailleurs on utilise une base de 
-données `Postgres` pour les test manuels et automatiques des fonctionnalités de l'API via l'outil `Postman`. 
+et pour l'intégration continue. H2 est entièrement compatible avec de nombreuses technologies de base de données standard comme Postgres. D'ailleurs on utilise une base de 
+données `Postgres` pour les tests des EndPoints de l'API via l'outil `Postman`. 
 
 ## Build
 
@@ -43,7 +43,7 @@ Pour constuire le projet:
 
 ## Tests
 
-Voir la documentation du plan de test dans le répertoire doc.
+Voir la documentation du plan de test: [main/doc/P8_05_plan_test.pdf](main/doc/P8_05_plan_test.pdf)
 
 ## CI/CD pipeline on Github
 
