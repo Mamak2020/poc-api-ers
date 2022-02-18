@@ -44,7 +44,7 @@ Pour constuire le projet:
 
 ## Tests
 
-Voir la documentation du plan de test: [doc/P8_05_plan_test.pdf](doc/P8_05_plan_test.pdf)
+Voir la documentation du plan de test: [doc/P8_05_plan_test.pdf](doc/P8_05_Plan_Test.pdf)
 
 ## CI/CD pipeline on Github
 
@@ -58,6 +58,6 @@ Le pipeline sous Github est configuré pour :
 La configuration du pipeline sous Github se trouve 
 dans le fichier [.github/workflows/maven.yml](.github/workflows/maven.yml)
 
-Voir la documentation du pipeline CI/CD dans le répertoire doc.
+Voir la documentation du pipeline CI/CD : [doc./P8_06_Pipeline_CICD.pdf](/doc/P8_06_Pipeline_CICD.pdf)
 
 
