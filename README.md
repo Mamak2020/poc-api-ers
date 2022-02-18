@@ -38,7 +38,8 @@ Le Build du projet correspond aux phases suivantes selon le Build lifecycles de 
 
 Pour constuire le projet:
 - cloner le project depuis ce repository
-- build le fichier`jar` avec la commande `mvn clean package`
+- récupérer le fichier dump pour l'importer dans l'outil d'adminstration de PostgreSQL pour créer la base de données `erspoc`
+- build le fichier`jar` avec la commande `mvn clean package` 
 - run le fichier `jar` avec la commande `java -jar ers-0.0.1-SNAPSHOT.jar`
 
 ## Tests
@@ -49,14 +50,14 @@ Voir la documentation du plan de test: [doc/P8_05_plan_test.pdf](doc/P8_05_plan_
 
 Le pipeline sous Github est configuré pour :
 
-  1. Exécuter les tests
-  2. Construire le projet 
+  1. Compiler le projet
+  2. Exécuter les tests
   3. Vérifier la qualité avec SoundCloud
-  4. Déployer le fichier jar
+  4. Construire et déployer le fichier jar
 
 La configuration du pipeline sous Github se trouve 
 dans le fichier [.github/workflows/maven.yml](.github/workflows/maven.yml)
 
 Voir la documentation du pipeline CI/CD dans le répertoire doc.
 
-### Setting up
+
