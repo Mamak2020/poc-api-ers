@@ -23,16 +23,9 @@ public class HospitalPathology {
 	@Column(name = "id_pathology")
 	private Long idPathology;
 
-	/*
-	 * @ManyToOne
-	 * 
-	 * @JoinColumn(name = "id_pathology") HospitalPathology hospitalPathology;
-	 */
-
 	@Column(name = "available_beds")
 	private Long availableBeds;
 
-	// @ManyToOne(fetch = FetchType.LAZY)
 	@ManyToOne
 	@JoinColumn(name = "id_hospital")
 	Hospital hospital;

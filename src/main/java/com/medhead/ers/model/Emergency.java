@@ -62,12 +62,11 @@ public class Emergency {
 
 	private String instructions;
 
+	@Column(name = "duration")
+	private Long duration;
 	@Column(name = "dt_request")
 	private Date dtRequest;
 	@Column(name = "dt_response")
 	private Date dtResponse;
-
-	@Column(name = "duration")
-	private Long duration;
 
 }

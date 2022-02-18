@@ -44,6 +44,7 @@ public class EmergencyService {
 		/* => Search the patient geo location */
 		if (emergency.getPatientLatitude() == null
 				|| emergency.getPatientLongitude() == null) {
+			/* Add an API Call to get the geo localisation */
 			emergency.setPatientLatitude((double) 47);
 			emergency.setPatientLongitude((double) 1);
 		}
@@ -110,7 +111,6 @@ public class EmergencyService {
 		emergency.setIdHospitalService(hospitalFound.getIdService());
 		emergency.setDistance(distance);
 
-		// emergency.setDtResponse(LocalDateTime.now());
 		String instructions;
 		instructions = "Réservation: " + hospitalFound.getName() + " à "
 				+ hospitalFound.getAddress() + " - Lattitude : "
