@@ -32,10 +32,4 @@ public class Hospital {
 	@Column(name = "is_available_bed")
 	private Boolean isAvailableBed;
 
-	/*
-	 * @OneToMany // (mappedBy = "hospital")
-	 * 
-	 * @JoinColumn(name = "id_hospital") private List<HospitalPathology>
-	 * listPathology;
-	 */
 }
