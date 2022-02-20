@@ -34,11 +34,10 @@ données `Postgres` pour les tests des EndPoints de l'API via l'outil `Postman`.
 ## Build
 
 Ce projet utilise Maven. La configuration du Build peut être trouvé dans le `pom.xml`.
-Le Build du projet correspond aux phases suivantes selon le Build lifecycles de Maven : validate, compile, test et package
 
-Pour constuire le projet:
-- cloner le project depuis ce repository
+Pour tester le projet:
 - récupérer le fichier dump pour l'importer dans l'outil d'adminstration de PostgreSQL pour créer la base de données `erspoc`
+- cloner le project depuis ce repository
 - build le fichier`jar` avec la commande `mvn clean package` 
 - run le fichier `jar` avec la commande `java -jar ers-0.0.1-SNAPSHOT.jar`
 
