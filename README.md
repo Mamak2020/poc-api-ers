@@ -59,4 +59,7 @@ dans le fichier [maven.yml](.github/workflows/maven.yml)
 
 Voir la documentation du pipeline CI/CD : [P8_06_Pipeline_CICD.pdf](/doc/P8_06_Pipeline_CICD.pdf)
 
+## POC ERS Architecture Repository (doc)
+POC Real Time Emergency Responder Subsystem Architecture Repository : https://github.com/Mamak2020/poc-ers-doc
+
 
