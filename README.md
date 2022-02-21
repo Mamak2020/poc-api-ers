@@ -36,7 +36,7 @@ données `Postgres` pour les tests des EndPoints de l'API via l'outil `Postman`.
 Ce projet utilise Maven. La configuration du Build peut être trouvé dans le `pom.xml`.
 
 Pour tester le projet:
-- récupérer le fichier [postgresql/dump-erspoc](postgresql/dump-erspoc) pour l'importer dans l'outil d'adminstration de PostgreSQL pour créer la base de données `erspoc`
+- récupérer le fichier [postgresql/dump-erspoc](dump-erspoc) pour l'importer dans l'outil d'adminstration de PostgreSQL pour créer la base de données `erspoc`
 - cloner le project depuis ce repository
 - build le fichier`jar` avec la commande `mvn clean package` 
 - run le fichier `jar` avec la commande `java -jar ers-0.0.1-SNAPSHOT.jar`
