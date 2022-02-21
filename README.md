@@ -36,14 +36,14 @@ données `Postgres` pour les tests des EndPoints de l'API via l'outil `Postman`.
 Ce projet utilise Maven. La configuration du Build peut être trouvé dans le `pom.xml`.
 
 Pour tester le projet:
-- récupérer le fichier [postgresql/dump-erspoc](dump-erspoc) pour l'importer dans l'outil d'adminstration de PostgreSQL pour créer la base de données `erspoc`
+- récupérer le fichier [dump-erspoc](postgresql/dump-erspoc) pour l'importer dans l'outil d'adminstration de PostgreSQL pour créer la base de données `erspoc`
 - cloner le project depuis ce repository
 - build le fichier`jar` avec la commande `mvn clean package` 
 - run le fichier `jar` avec la commande `java -jar ers-0.0.1-SNAPSHOT.jar`
 
 ## Tests
 
-Voir la documentation du plan de test: [doc/P8_05_plan_test.pdf](doc/P8_05_Plan_Test.pdf)
+Voir la documentation du plan de test: [P8_05_plan_test.pdf](doc/P8_05_Plan_Test.pdf)
 
 ## CI/CD pipeline on Github
 
@@ -55,8 +55,8 @@ Le pipeline sous Github est configuré pour :
   4. Construire et déployer le fichier jar
 
 La configuration du pipeline sous Github se trouve 
-dans le fichier [.github/workflows/maven.yml](.github/workflows/maven.yml)
+dans le fichier [maven.yml](.github/workflows/maven.yml)
 
-Voir la documentation du pipeline CI/CD : [doc./P8_06_Pipeline_CICD.pdf](/doc/P8_06_Pipeline_CICD.pdf)
+Voir la documentation du pipeline CI/CD : [P8_06_Pipeline_CICD.pdf](/doc/P8_06_Pipeline_CICD.pdf)
 
 
