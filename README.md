@@ -1,7 +1,7 @@
 # Emergency Responder Subsystem (ERS)
 
-Emergency Responder Subsystem (ERS) est un système optimisé permettant de gérer les demandes d"intervention urgentes depuis la plateforme des différents intervenants de MedHaed. 
-Dans ce repository on trouvera le code java et la documentation technique permettant l'implémentation de ce POC (Plan de tests et Pipeline CI/CD). Dans un autre repository ... on trouvera la documentation complète de l'architecture du projet.
+Emergency Responder Subsystem (ERS) est un système optimisé permettant de gérer les demandes d"intervention urgentes depuis la plateforme des différents intervenants du Consortium. 
+Dans ce repository on trouvera le code java et la documentation technique permettant l'implémentation de ce POC (Plan de tests et Pipeline CI/CD).
 
 ## Application overview
 
