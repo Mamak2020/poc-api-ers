@@ -43,7 +43,7 @@ Pour tester le projet:
 
 ## Tests
 
-Voir la documentation du plan de test: [P8_05_plan_test.pdf](doc/P8_05_Plan_Test.pdf)
+Voir la documentation du plan de test: [P8_05_Plan_Test.pdf](doc/P8_05_Plan_Test.pdf)
 
 ## CI/CD pipeline on Github
 
